@@ -59,7 +59,7 @@ object Inheritance extends App {
     }
   }
 
-    class Spider(override val specie: String) extends Animal {
+  class Spider(override val specie: String) extends Animal {
     override val creatureType: String = "domestic"
     // use final on before the method declaration to prevent overriding
     final override def eat: Unit = {
@@ -70,7 +70,7 @@ object Inheritance extends App {
   }
 
 //   sealed, prevent overriding in a different file
-    sealed class Rabbit(override val specie: String) extends Animal {
+  sealed class Rabbit(override val specie: String) extends Animal {
     override val creatureType: String = "domestic"
     // use final on before the method declaration to prevent overriding
     final override def eat: Unit = {
@@ -79,4 +79,35 @@ object Inheritance extends App {
       println("crunch override!")
     }
   }
+
+//   Abstract class
+  abstract class Plant {
+    val specie: String
+    def grow: Unit
+  }
+// not mandatory to put the key "override" to override parent fields or methods
+  class Weed extends Plant {
+    override val specie: String = "hemp"
+    def grow: Unit = println("growing!")
+  }
+
+//   traits
+  trait Tree {
+    def grow(plant: Plant): Unit
+  }
+
+//   multiple inheritance
+  class OGKush extends Plant with Tree {
+    val specie: String = "marihuana"
+    def grow: Unit = println("smoking")
+    def grow(plant: Plant): Unit =
+      println(s"OG kush is ${plant.specie} and grows indoor!")
+  }
+
+  val plant1 = new Weed
+  val bud = new OGKush
+  bud.grow(plant1)
+
+//   multiple traits may be inherited by the same class but only one Abstract class.
+// Abstract class is a thing and traits describes its behavior
 }
