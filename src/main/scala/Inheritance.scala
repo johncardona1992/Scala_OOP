@@ -25,7 +25,11 @@ object Inheritance extends App {
   //   overRiding
   class Dog(override val specie: String) extends Animal {
     override val creatureType: String = "domestic"
-    override def eat: Unit = println("crunch override!")
+    override def eat: Unit = {
+      // call method from parent class
+      super.eat
+      println("crunch override!")
+    }
   }
 
   val dog = new Dog("Mammal")
@@ -33,7 +37,46 @@ object Inheritance extends App {
   println(dog.creatureType)
   println(dog.specie)
 
-//   Polymorphism
+  //   Polymorphism
   val unKnownAnimal: Animal = new Dog("K9")
+  println(unKnownAnimal.specie)
   unKnownAnimal.eat
+
+  // OverRiding vs Overloading
+//   Overriding: supply a different implementation in derived classes
+//   overLoading: supply multiple methods with different signatures but with the same name within the same class
+
+// super: reference a method or field from the Parent Class
+
+// preventing overrides
+// use final on before the class declaration to prevent overriding of the entire class
+  final class Horse(override val specie: String) extends Animal {
+    override val creatureType: String = "domestic"
+    override def eat: Unit = {
+      // call method from parent class
+      super.eat
+      println("crunch override!")
+    }
+  }
+
+    class Spider(override val specie: String) extends Animal {
+    override val creatureType: String = "domestic"
+    // use final on before the method declaration to prevent overriding
+    final override def eat: Unit = {
+      // call method from parent class
+      super.eat
+      println("crunch override!")
+    }
+  }
+
+//   sealed, prevent overriding in a different file
+    sealed class Rabbit(override val specie: String) extends Animal {
+    override val creatureType: String = "domestic"
+    // use final on before the method declaration to prevent overriding
+    final override def eat: Unit = {
+      // call method from parent class
+      super.eat
+      println("crunch override!")
+    }
+  }
 }
